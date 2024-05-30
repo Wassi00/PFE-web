@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Login from './Components/Login';
+import ClassSelection from './Components/ClassSelection';
+import QRCodeGeneration from './Components/QRCode';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  const [token, setToken] = useState(null);
+  const [classId, setClassId] = useState(null);
+
+  if (!token) {
+    return <Login setToken={setToken} />;
+  }
+
+  if (!classId) {
+    return <ClassSelection token={token} selectClass={setClassId} />;
+  }
+
+  return <QRCodeGeneration token={token} classId={classId} />;
+};
 
 export default App;
